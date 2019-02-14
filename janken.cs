@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class janken : MonoBehaviour {
 
@@ -28,29 +29,84 @@ public class janken : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetKeyDown(KeyCode.Return)){
-			int n = Random.Range(0,3);
-			
-			switch(n){
-				case 0:
-					this.gu.GetComponent<Image>().enabled = true;
-					this.begin.GetComponent<Text>().enabled = false;
+	public void trygu() {
+		int n = Random.Range(0,3);	
+		switch(n){
+			case 0:
+				this.gu.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetodraw();
+				break;
 					
-					break;
+			case 1:
+				this.choki.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetowin();
+				break;
 					
-				case 1:
-					this.choki.GetComponent<Image>().enabled = true;
-					this.begin.GetComponent<Text>().enabled = false;
-					
-					break;
-					
-				case 2:
-					this.pa.GetComponent<Image>().enabled = true;
-					this.begin.GetComponent<Text>().enabled = false;
-					
-					break;
-			}
+			case 2:
+				this.pa.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetolose();
+				break;
 		}
+	}
+	
+	public void trychoki() {
+		int m = Random.Range(0,3);	
+		switch(m){
+			case 0:
+				this.gu.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetolose();
+				break;
+					
+			case 1:
+				this.choki.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetodraw();
+				break;
+					
+			case 2:
+				this.pa.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetowin();
+				break;
+		}
+	}
+	
+	public void trypa(){
+		int l = Random.Range(0,3);	
+		switch(l){
+			case 0:
+				this.gu.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetowin();
+				break;
+					
+			case 1:
+				this.choki.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetolose();
+				break;
+					
+			case 2:
+				this.pa.GetComponent<Image>().enabled = true;
+				this.begin.GetComponent<Text>().enabled = false;
+				movetodraw();
+				break;
+		}
+	}
+	
+	public void movetowin(){
+		FadeManager.Instance.LoadScene("WinScene", 2.0f);
+	}
+	
+	public void movetodraw(){
+		FadeManager.Instance.LoadScene("DrawScene", 2.0f);
+	}
+	
+	public void movetolose(){
+		FadeManager.Instance.LoadScene("LoseScene", 2.0f);
 	}
 }
